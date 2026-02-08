@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>حاسبة المواريث الإسلامية</title>
+<link rel="stylesheet" href="/static/style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <header class="header">
+        <h1>📊 حاسبة المواريث الإسلامية</h1>
+        <p class="subtitle">احسب توزيع التركة وفقاً للشريعة الإسلامية</p>
+    </header>
+
+    <div class="form-section">
+        <h2>معلومات التركة والمتوفى</h2>
+        
+        <div class="card">
+            <label>قيمة التركة (ريال/دولار)</label>
+            <input type="number" id="estate" value="100000" step="1000" min="0">
+        </div>
+
+        <div class="card">
+            <label>جنس المتوفى</label>
+            <select id="deceased_gender" onchange="toggleSpouseFields()">
+                <option value="ذكر">ذكر</option>
+                <option value="أنثى">أنثى</option>
+            </select>
+        </div>
+
+        <h2>الأقارب الموجودون</h2>
+
+        <h3>👫 الزوج/الزوجة</h3>
+        <div class="grid-2">
+            <div class="card" id="husband_box">
+                <label>
+                    <input type="checkbox" id="husband"> الزوج
+                </label>
+            </div>
+            <div class="card" id="wives_box">
+                <label>عدد الزوجات</label>
+                <input type="number" id="wives" min="0" max="4" value="0">
+            </div>
+        </div>
+
+        <h3>👨‍👩‍👧‍👦 الآباء والأمهات</h3>
+        <div class="grid-2">
+            <div class="card">
+                <label><input type="checkbox" id="father"> الأب</label>
+            </div>
+            <div class="card">
+                <label><input type="checkbox" id="mother"> الأم</label>
+            </div>
+        </div>
+
+        <h3>👶 الأبناء والبنات</h3>
+        <div class="grid-2">
+            <div class="card">
+                <label>عدد الأبناء</label>
+                <input type="number" id="sons" value="0" min="0">
+            </div>
+            <div class="card">
+                <label>عدد البنات</label>
+                <input type="number" id="daughters" value="0" min="0">
+            </div>
+        </div>
+
+        <h3>👥 الإخوة والأخوات الأشقاء</h3>
+        <div class="grid-2">
+            <div class="card">
+                <label>عدد الإخوة الأشقاء</label>
+                <input type="number" id="brothers" value="0" min="0">
+            </div>
+            <div class="card">
+                <label>عدد الأخوات الشقيقات</label>
+                <input type="number" id="sisters" value="0" min="0">
+            </div>
+        </div>
+
+        <h3>👴 الأجداد والجدات</h3>
+        <div class="grid-2">
+            <div class="card">
+                <label><input type="checkbox" id="grandfather"> الجد</label>
+            </div>
+            <div class="card">
+                <label><input type="checkbox" id="grandmother"> الجدة</label>
+            </div>
+        </div>
+
+        <h3>🤝 الإخوة والأخوات من الأب</h3>
+        <div class="grid-2">
+            <div class="card">
+                <label>عدد الإخوة من الأب</label>
+                <input type="number" id="halfbrothers_father" value="0" min="0">
+            </div>
+            <div class="card">
+                <label>عدد الأخوات من الأب</label>
+                <input type="number" id="halfsisters_father" value="0" min="0">
+            </div>
+        </div>
+
+        <button class="btn-calculate" onclick="calculate()">حساب التوزيع</button>
+    </div>
+
+    <div id="results" class="results-section" style="display:none;">
+        <h2>📈 نتائج التوزيع</h2>
+        <div id="explanation" class="explanation"></div>
+        
+        <div class="chart-container">
+            <canvas id="chart"></canvas>
+        </div>
+
+        <div class="summary-section">
+            <h3>ملخص التوزيع</h3>
+            <table id="summaryTable" class="summary-table"></table>
+        </div>
+
+        <button class="btn-pdf" onclick="downloadPDF()">📥 تحميل تقرير PDF</button>
+        <button class="btn-reset" onclick="resetCalculator()">🔄 إعادة تعيين</button>
+    </div>
+</div>
+
+<script src="/static/chart.js"></script>
+</body>
+</html>
